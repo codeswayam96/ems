@@ -1,0 +1,30 @@
+
+> ems-frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 24.9s
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/dashboard/page.tsx:60:17
+Type error: 'isAdmin' is declared but its value is never read.
+
+[0m [90m 58 |[39m
+ [90m 59 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mDashboard[39m() {
+[31m[1m>[22m[39m[90m 60 |[39m   [36mconst[39m { user[33m,[39m isAdmin[33m,[39m isManager } [33m=[39m useAuth()[33m;[39m
+ [90m    |[39m                 [31m[1m^[22m[39m
+ [90m 61 |[39m
+ [90m 62 |[39m   [36mconst[39m statCards [33m=[39m useMemo(() [33m=>[39m {
+ [90m 63 |[39m     [36mconst[39m baseStats [33m=[39m [[0m
+Next.js build worker exited with code: 1 and signal: null
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path C:\Users\niteesh\OneDrive\Desktop\coding\codeswayam\apps\ems-frontend
+npm error workspace ems-frontend@0.1.0
+npm error location C:\Users\niteesh\OneDrive\Desktop\coding\codeswayam\apps\ems-frontend
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
