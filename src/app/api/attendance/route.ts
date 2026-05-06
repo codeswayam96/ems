@@ -5,7 +5,7 @@ import connectToDatabase from '@/lib/db';
 import { Attendance } from '@/models/Attendance';
 import { EmsUser } from '@/models/EmsUser';
 import { getUserFromSession } from '@/lib/auth';
-import { populateSsoUsers } from '@codeswayam/auth';
+import { populateSsoUsers } from '@/lib/sso';
 
 export async function GET(req: Request) {
   try {

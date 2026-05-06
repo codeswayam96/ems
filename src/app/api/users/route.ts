@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/db';
 import { EmsUser } from '@/models/EmsUser';
 import { getUserFromSession } from '@/lib/auth';
-import { populateSsoUsers } from '@codeswayam/auth';
+import { populateSsoUsers } from '@/lib/sso';
 import { headers } from 'next/headers';
 
 export async function GET() {

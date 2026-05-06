@@ -4,7 +4,7 @@ import connectToDatabase from '@/lib/db';
 import { Task } from '@/models/Task';
 import { getUserFromSession } from '@/lib/auth';
 import { EmsUser } from '@/models/EmsUser';
-import { populateSsoUsers } from '@codeswayam/auth';
+import { populateSsoUsers } from '@/lib/sso';
 
 // GET /api/tasks/[id]
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
