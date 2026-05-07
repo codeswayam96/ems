@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCSWUser, logout as cswLogout } from "@codeswayam/auth";
 import { apiClient } from "@/lib/api-client";
 import { AccessDenied } from "@/components/AccessDenied";
+import { usePathname } from "next/navigation";
 
 interface EmsProfile {
   ssoUserId: string;
@@ -26,6 +27,7 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
   const { user: ssoUser, isLoaded: ssoLoaded } = useCSWUser();
   const [emsProfile, setEmsProfile] = useState<EmsProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
 
   const fetchEmsProfile = async () => {
     try {
@@ -40,13 +42,22 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (ssoLoaded) {
+      // Skip profile check while on auth pages to avoid race conditions or 401s
+      // before the SSO token is fully settled/verified.
+      const isAuthPath = pathname.startsWith('/auth') || pathname === '/login' || pathname === '/signup';
+      
+      if (isAuthPath) {
+        setLoading(false);
+        return;
+      }
+
       if (ssoUser) {
         fetchEmsProfile();
       } else {
         setLoading(false);
       }
     }
-  }, [ssoUser, ssoLoaded]);
+  }, [ssoUser, ssoLoaded, pathname]);
 
   const combinedUser = ssoUser && emsProfile ? { ...ssoUser, ...emsProfile } : null;
 
