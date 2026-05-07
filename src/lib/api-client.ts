@@ -25,6 +25,14 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
+        const pathname = window.location.pathname;
+        const isAuthPage = pathname.startsWith('/auth') || pathname === '/login' || pathname === '/signup';
+        
+        if (isAuthPage) {
+          console.warn("[EMS API] Unauthorized on auth page, avoiding loop.");
+          return Promise.reject(error);
+        }
+
         // Resolve SSO URL from window global (set by CSWProvider) or env var
         const ssoUrl =
           (window as any).__CSW_SSO_URL ||
@@ -32,7 +40,6 @@ apiClient.interceptors.response.use(
           'https://auth.codeswayam.com/sso';
 
         // Pass the callback URL as the redirect target.
-        // The SSO service will redirect back to /auth/callback after login.
         const callbackUrl = `${window.location.origin}/auth/callback`;
         const redirectUrl = new URL(ssoUrl);
         redirectUrl.searchParams.set('redirect', callbackUrl);
