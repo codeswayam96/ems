@@ -1,11 +1,15 @@
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
 export async function getUserFromSession() {
   const cookieStore = await cookies();
-  const token = cookieStore.get('Authentication')?.value;
+  const headerStore = await headers();
+
+  const token =
+    cookieStore.get('Authentication')?.value ||
+    headerStore.get('authorization')?.replace('Bearer ', '');
 
   if (!token) return null;
 

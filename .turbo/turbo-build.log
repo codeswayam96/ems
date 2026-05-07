@@ -2,29 +2,54 @@
 > ems-frontend@0.1.0 build
 > next build
 
-▲ Next.js 16.1.6 (Turbopack)
-- Environments: .env.local
+▲ Next.js 16.2.4 (Turbopack)
+- Environments: .env.local, .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 24.9s
+✓ Compiled successfully in 29.1s
   Running TypeScript ...
-Failed to compile.
+  Finished TypeScript in 27.4s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/25) ...
+  Generating static pages using 7 workers (6/25) 
+  Generating static pages using 7 workers (12/25) 
+  Generating static pages using 7 workers (18/25) 
+✓ Generating static pages using 7 workers (25/25) in 1548ms
+  Finalizing page optimization ...
 
-./src/app/dashboard/page.tsx:60:17
-Type error: 'isAdmin' is declared but its value is never read.
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /announcements
+├ ƒ /api/announcements
+├ ƒ /api/announcements/[id]
+├ ƒ /api/attendance
+├ ƒ /api/attendance/[id]
+├ ƒ /api/dashboard/stats
+├ ƒ /api/ems-profile
+├ ƒ /api/meetings
+├ ƒ /api/tasks
+├ ƒ /api/tasks/[id]
+├ ƒ /api/tasks/my-tasks
+├ ƒ /api/teams
+├ ƒ /api/teams/[id]
+├ ƒ /api/tracking
+├ ƒ /api/tracking/[id]
+├ ƒ /api/users
+├ ƒ /api/users/[ssoUserId]
+├ ƒ /api/users/me
+├ ○ /attendance
+├ ○ /auth/callback
+├ ○ /calendar
+├ ○ /dashboard
+├ ○ /meetings
+├ ○ /settings
+├ ○ /tasks
+├ ○ /teams
+├ ○ /tracking
+└ ○ /users
 
-[0m [90m 58 |[39m
- [90m 59 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mDashboard[39m() {
-[31m[1m>[22m[39m[90m 60 |[39m   [36mconst[39m { user[33m,[39m isAdmin[33m,[39m isManager } [33m=[39m useAuth()[33m;[39m
- [90m    |[39m                 [31m[1m^[22m[39m
- [90m 61 |[39m
- [90m 62 |[39m   [36mconst[39m statCards [33m=[39m useMemo(() [33m=>[39m {
- [90m 63 |[39m     [36mconst[39m baseStats [33m=[39m [[0m
-Next.js build worker exited with code: 1 and signal: null
-npm error Lifecycle script `build` failed with error:
-npm error code 1
-npm error path C:\Users\niteesh\OneDrive\Desktop\coding\codeswayam\apps\ems-frontend
-npm error workspace ems-frontend@0.1.0
-npm error location C:\Users\niteesh\OneDrive\Desktop\coding\codeswayam\apps\ems-frontend
-npm error command failed
-npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

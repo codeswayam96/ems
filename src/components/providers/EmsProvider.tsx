@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCSWUser, logout as cswLogout } from "@codeswayam/auth";
-import axios from "axios";
+import { apiClient } from "@/lib/api-client";
 import { AccessDenied } from "@/components/AccessDenied";
 
 interface EmsProfile {
@@ -29,7 +29,7 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
 
   const fetchEmsProfile = async () => {
     try {
-      const response = await axios.get("/api/ems-profile");
+      const response = await apiClient.get("/ems-profile");
       setEmsProfile(response.data);
     } catch (err) {
       console.error("Failed to fetch EMS profile", err);

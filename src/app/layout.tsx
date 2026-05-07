@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased flex min-h-screen bg-muted/30`}>
         <CSWProvider 
           apiUrl={process.env.NEXT_PUBLIC_API_URL} 
-          authDomain={process.env.NEXT_PUBLIC_SSO_URL}
+          ssoUrl={process.env.NEXT_PUBLIC_APP_AUTH_URL}
         >
           <ConditionalAuthGuard>
             <EmsProvider>

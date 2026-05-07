@@ -9,13 +9,34 @@ export const apiClient = axios.create({
   },
 });
 
-// Add a response interceptor for error handling
+// Always inject the stored Bearer token for every request.
+// This is the cross-domain fix: cookies can't cross origins, but the
+// Authorization header works from localhost → production API.
+apiClient.interceptors.request.use((config) => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('csw_token');
+    if (token) config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config;
+});
+
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
-        window.location.href = process.env.NEXT_PUBLIC_SSO_URL || 'http://localhost:3003/sso';
+        // Resolve SSO URL from window global (set by CSWProvider) or env var
+        const ssoUrl =
+          (window as any).__CSW_SSO_URL ||
+          process.env.NEXT_PUBLIC_APP_AUTH_URL ||
+          'https://auth.codeswayam.com/sso';
+
+        // Pass the callback URL as the redirect target.
+        // The SSO service will redirect back to /auth/callback after login.
+        const callbackUrl = `${window.location.origin}/auth/callback`;
+        const redirectUrl = new URL(ssoUrl);
+        redirectUrl.searchParams.set('redirect', callbackUrl);
+        window.location.href = redirectUrl.toString();
       }
     }
     return Promise.reject(error);
