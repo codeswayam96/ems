@@ -32,7 +32,10 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
   const fetchEmsProfile = async () => {
     try {
       const response = await apiClient.get("/ems-profile");
-      setEmsProfile(response.data);
+      setEmsProfile({
+        ...response.data,
+        
+      });
     } catch (err) {
       console.error("Failed to fetch EMS profile", err);
     } finally {
@@ -40,24 +43,21 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  useEffect(() => {
-    if (ssoLoaded) {
-      // Skip profile check while on auth pages to avoid race conditions or 401s
-      // before the SSO token is fully settled/verified.
-      const isAuthPath = pathname.startsWith('/auth') || pathname === '/login' || pathname === '/signup';
-      
-      if (isAuthPath) {
-        setLoading(false);
-        return;
-      }
+  const isAuthPath = pathname.startsWith('/auth') || pathname === '/login' || pathname === '/signup';
 
-      if (ssoUser) {
-        fetchEmsProfile();
-      } else {
-        setLoading(false);
-      }
+  useEffect(() => {
+    if (isAuthPath) {
+      setLoading(false);
+      return;
     }
-  }, [ssoUser, ssoLoaded, pathname]);
+    if (!ssoLoaded) return;
+
+    if (ssoUser) {
+      fetchEmsProfile();
+    } else {
+      setLoading(false);
+    }
+  }, [ssoUser, ssoLoaded, isAuthPath]);
 
   const combinedUser = ssoUser && emsProfile ? { ...ssoUser, ...emsProfile } : null;
 

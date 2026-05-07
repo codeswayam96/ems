@@ -1,10 +1,19 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSSOCallback } from "@codeswayam/auth";
 import { Loader2 } from "lucide-react";
 
 export default function AuthCallbackPage() {
     const { status, error } = useSSOCallback();
+
+    useEffect(() => {
+        if (status === "success") {
+            const params = new URLSearchParams(window.location.search);
+            const destination = params.get("redirect") || "/dashboard";
+            window.location.href = destination;
+        }
+    }, [status]);
 
     if (status === "error") {
         return (
