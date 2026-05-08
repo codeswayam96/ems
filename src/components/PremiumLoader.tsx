@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 export function PremiumLoader() {
   return (
     <div className="flex min-h-screen" style={{ background: 'hsl(var(--background))' }}>
