@@ -291,8 +291,10 @@ export default function TasksPage() {
 
       {/* Filters Bar */}
       <div className="flex flex-wrap gap-3 items-center">
-        <TableToolbar searchValue={search} onSearchChange={setSearch} placeholder="Search tasks, assignees..." />
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="flex-1 min-w-[200px]">
+          <TableToolbar searchValue={search} onSearchChange={setSearch} placeholder="Search tasks, assignees..." />
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
           {activeFilterCount > 0 && (
             <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs text-muted-foreground" onClick={() => { setStatusFilter('all'); setPriorityFilter('all'); }}>
               <RotateCcw className="w-3.5 h-3.5" /> Reset

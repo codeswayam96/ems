@@ -17,20 +17,13 @@ interface DashStats {
   upcomingMeetings: { _id: string; title: string; scheduledTime: string; platform: string }[];
   activeTeams: number;
   totalEmployees: number | null;
+  tasksByDepartment: { name: string; tasks: number }[];
 }
 
 interface Announcement {
   _id: string; title: string; content: string; priority: string; pinned: boolean; createdAt: string;
   authorDetails?: { name: string };
 }
-
-const tasksByDepartment = [
-  { name: "Engineering", tasks: 145 },
-  { name: "Product", tasks: 98 },
-  { name: "Design", tasks: 76 },
-  { name: "Sales", tasks: 64 },
-  { name: "HR", tasks: 42 },
-];
 
 const PRIORITY_CLS: Record<string, string> = {
   urgent: 'border-l-red-500',
@@ -172,15 +165,34 @@ export default function Dashboard() {
             <Link href="/tasks" className="text-xs text-violet-600 hover:text-violet-700 font-bold flex items-center gap-1 group">Full Board <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></Link>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={tasksByDepartment} layout="vertical" margin={{ top: 0, right: 30, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground)/0.1)" horizontal={false} />
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fontWeight: 'bold' }} width={90} axisLine={false} tickLine={false} />
-                <Tooltip cursor={{ fill: 'hsl(var(--muted)/0.3)' }} contentStyle={{ backgroundColor: 'hsl(var(--card))', border: 'none', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                <Bar dataKey="tasks" fill="#8b5cf6" radius={[0, 6, 6, 0]} barSize={18} />
-              </BarChart>
-            </ResponsiveContainer>
+            {loadingStats ? (
+              <div className="space-y-3 py-2">
+                {[80, 55, 65, 40, 70].map((w, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="h-3 w-20 bg-muted animate-pulse rounded" />
+                    <div className="h-5 bg-muted animate-pulse rounded-full" style={{ width: `${w}%` }} />
+                  </div>
+                ))}
+              </div>
+            ) : !stats?.tasksByDepartment?.length ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center gap-2">
+                <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-muted-foreground/40" />
+                </div>
+                <p className="text-sm font-semibold text-foreground">No task data yet</p>
+                <p className="text-xs text-muted-foreground">Create tasks and assign them to team members to see department distribution.</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height={240}>
+                <BarChart data={stats.tasksByDepartment} layout="vertical" margin={{ top: 0, right: 30, left: -10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground)/0.1)" horizontal={false} />
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fontWeight: 'bold' }} width={90} axisLine={false} tickLine={false} />
+                  <Tooltip cursor={{ fill: 'hsl(var(--muted)/0.3)' }} contentStyle={{ backgroundColor: 'hsl(var(--card))', border: 'none', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                  <Bar dataKey="tasks" fill="#8b5cf6" radius={[0, 6, 6, 0]} barSize={18} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </CardContent>
         </Card>
 

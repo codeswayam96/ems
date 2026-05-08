@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/Sidebar";
 import { Toaster } from "sonner";
 import { CSWProvider } from "@codeswayam/auth";
 import { EmsProvider } from "@/components/providers/EmsProvider";
 import { ConditionalAuthGuard } from "@/components/providers/ConditionalAuthGuard";
+import { ClientLayout } from "@/components/ClientLayout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,19 +24,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased flex min-h-screen bg-muted/30`}>
-        <CSWProvider 
-          apiUrl={process.env.NEXT_PUBLIC_API_URL} 
+      <body className={`${inter.variable} antialiased`}>
+        <CSWProvider
+          apiUrl={process.env.NEXT_PUBLIC_API_URL}
           ssoUrl={process.env.NEXT_PUBLIC_APP_AUTH_URL}
         >
           <ConditionalAuthGuard>
             <EmsProvider>
-              <Sidebar />
-              <main className="flex-1 overflow-auto">
-                <div className="p-8 max-w-[1400px] mx-auto">
-                  {children}
-                </div>
-              </main>
+              <ClientLayout>
+                {children}
+              </ClientLayout>
               <Toaster richColors position="top-right" />
             </EmsProvider>
           </ConditionalAuthGuard>

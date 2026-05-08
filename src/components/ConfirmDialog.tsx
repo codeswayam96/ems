@@ -43,17 +43,17 @@ export function ConfirmDialog({
           <DialogDescription className="text-white/60">{description}</DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="gap-3 sm:gap-0">
+        <DialogFooter className="gap-2 flex-col-reverse sm:flex-row sm:gap-0">
           <Button
             variant="outline"
             onClick={onCancel}
-            className="border-white/20 text-white hover:bg-white/10"
+            className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10"
           >
             {cancelLabel}
           </Button>
           <Button
             onClick={onConfirm}
-            className={isDangerous ? 'bg-red-600 hover:bg-red-700' : 'bg-violet-600 hover:bg-violet-700'}
+            className={`w-full sm:w-auto ${isDangerous ? 'bg-red-600 hover:bg-red-700' : 'bg-violet-600 hover:bg-violet-700'}`}
           >
             {confirmLabel}
           </Button>

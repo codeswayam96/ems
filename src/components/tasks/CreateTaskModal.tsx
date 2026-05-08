@@ -116,7 +116,7 @@ export function CreateTaskModal({ isOpen, onClose, onTaskCreated }: CreateTaskMo
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[560px] p-0 overflow-hidden bg-background border border-border/80 shadow-2xl">
+      <DialogContent className="w-full sm:max-w-[560px] p-0 overflow-hidden bg-background border border-border/80 shadow-2xl">
         {/* Header */}
         <div className="px-6 pt-6 pb-4 border-b border-border/50 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent">
           <DialogHeader>
@@ -161,7 +161,7 @@ export function CreateTaskModal({ isOpen, onClose, onTaskCreated }: CreateTaskMo
           </div>
 
           {/* Assign To + Due Date */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                 <User2 className="w-3.5 h-3.5 text-muted-foreground" /> Assign To <span className="text-red-400">*</span>
@@ -202,7 +202,7 @@ export function CreateTaskModal({ isOpen, onClose, onTaskCreated }: CreateTaskMo
           {/* Priority */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-foreground">Priority</label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {PRIORITIES.map(({ value, label, icon: Icon, color, bg }) => (
                 <button
                   key={value}
@@ -267,15 +267,15 @@ export function CreateTaskModal({ isOpen, onClose, onTaskCreated }: CreateTaskMo
           </div>
 
           {/* Footer */}
-          <div className="flex justify-between items-center pt-2 border-t border-border/50">
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-3 pt-2 border-t border-border/50">
             <div className="text-xs text-muted-foreground">
               Priority:{" "}
               <span className={selectedPriority?.color + " font-medium"}>
                 {selectedPriority?.label}
               </span>
             </div>
-            <div className="flex gap-2">
-              <Button type="button" variant="outline" onClick={handleClose} className="h-9">
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button type="button" variant="outline" onClick={handleClose} className="h-9 flex-1 sm:flex-none">
                 Cancel
               </Button>
               <Button

@@ -33,6 +33,7 @@ export async function GET() {
       upcomingMeetings,
       activeTeams,
       totalEmployees,
+      tasksByDepartment,
     ] = await Promise.all([
       Task.countDocuments(taskQuery),
       Task.countDocuments({ ...taskQuery, status: 'approved' }),
@@ -50,6 +51,28 @@ export async function GET() {
         .lean(),
       Team.countDocuments({ status: 'active' }),
       isManager ? EmsUser.countDocuments({ status: 'approved' }) : null,
+      // Tasks grouped by assignee's department (managers see all, employees see own)
+      Task.aggregate([
+        ...(isManager ? [] : [{ $match: { assignedToSsoId: session.ssoUserId } }]),
+        {
+          $lookup: {
+            from: 'emsusers',
+            localField: 'assignedToSsoId',
+            foreignField: 'ssoUserId',
+            as: 'assignee',
+          },
+        },
+        { $unwind: { path: '$assignee', preserveNullAndEmptyArrays: true } },
+        {
+          $group: {
+            _id: { $ifNull: ['$assignee.department', 'General'] },
+            tasks: { $sum: 1 },
+          },
+        },
+        { $project: { _id: 0, name: '$_id', tasks: 1 } },
+        { $sort: { tasks: -1 } },
+        { $limit: 8 },
+      ]),
     ]);
 
     const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
@@ -60,6 +83,7 @@ export async function GET() {
       upcomingMeetings,
       activeTeams,
       totalEmployees,
+      tasksByDepartment,
     });
   } catch (err: any) {
     console.error('GET /api/dashboard/stats failed:', err);

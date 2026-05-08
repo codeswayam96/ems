@@ -87,7 +87,7 @@ export default function MeetingsPage() {
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={fetchMeetings} className="gap-2"><RefreshCw className="w-4 h-4" />Refresh</Button>
           {isManager && (
-            <Button onClick={() => setCreateOpen(true)} className="gap-2 bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-500/20"><Plus className="w-4 h-4" />Schedule Meeting</Button>
+            <Button onClick={() => setCreateOpen(true)} className="gap-2 w-full sm:w-auto bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-500/20"><Plus className="w-4 h-4" />Schedule Meeting</Button>
           )}
         </div>
       </div>
@@ -151,7 +151,7 @@ export default function MeetingsPage() {
                     {meeting.department && <span>{meeting.department}</span>}
                   </div>
                 </div>
-                <div className="shrink-0 flex items-center gap-2">
+                <div className="shrink-0 flex flex-wrap items-center gap-1.5">
                   <Badge variant="outline" className={`text-xs ${STATUS_CLS[meeting.status]}`}>{meeting.status}</Badge>
                   <Button size="sm" variant="outline" onClick={() => addToGoogleCalendar(meeting)} title="Add to Google Calendar"><Calendar className="w-3.5 h-3.5" /></Button>
                   <Button size="sm" onClick={() => meeting.meetingLink && window.open(meeting.meetingLink, '_blank')} disabled={!meeting.meetingLink}>Join</Button>

@@ -5,6 +5,7 @@ import { useCSWUser, logout as cswLogout } from "@codeswayam/auth";
 import { apiClient } from "@/lib/api-client";
 import { AccessDenied } from "@/components/AccessDenied";
 import { usePathname } from "next/navigation";
+import { PremiumLoader } from "@/components/PremiumLoader";
 
 interface EmsProfile {
   ssoUserId: string;
@@ -66,11 +67,7 @@ export function EmsProvider({ children }: { children: React.ReactNode }) {
   const showAccessDenied = ssoUser && emsProfile && !isApproved;
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
+    return <PremiumLoader />;
   }
 
   if (showAccessDenied) {

@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { AuthGuard } from "@codeswayam/auth";
+import { PremiumLoader } from "@/components/PremiumLoader";
 
 export function ConditionalAuthGuard({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -16,5 +17,5 @@ export function ConditionalAuthGuard({ children }: { children: React.ReactNode }
         return <>{children}</>;
     }
 
-    return <AuthGuard>{children}</AuthGuard>;
+    return <AuthGuard fallback={<PremiumLoader />}>{children}</AuthGuard>;
 }
