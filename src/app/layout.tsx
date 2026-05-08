@@ -15,6 +15,16 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "EMS - Employee Management System",
   description: "Manage employees, tasks, meetings, and time tracking",
+  manifest: "/manifest.json",
+  themeColor: "#8b5cf6",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "EMS System",
+  },
+  icons: {
+    apple: "/icon-192x192.png",
+  },
 };
 
 export default function RootLayout({
