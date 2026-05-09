@@ -3,19 +3,15 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  // Enable in all environments so PWA install prompt works in dev too
-  disable: false,
-  // Don't let next-pwa overwrite our custom sw.js (which handles push notifications)
-  customWorkerSrc: "public/sw.js",
-  // Fallback pages for offline
+  disable: process.env.NODE_ENV === "development",
+  // Inject our push notification handlers into the generated SW
+  customWorkerSrc: "src/worker",
   fallbacks: {
     document: "/offline",
   },
   workboxOptions: {
-    // Skip waiting so new SW activates immediately
     skipWaiting: true,
     clientsClaim: true,
-    // Don't precache sw.js itself
     exclude: [/sw\.js$/],
   },
 });
