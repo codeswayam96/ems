@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { TableToolbar } from '@/components/table/TableToolbar';
 import { EmptyState } from '@/components/EmptyState';
 import { LeaveRequestModal } from '@/components/attendance/LeaveRequestModal';
+import { LeaveBalanceWidget } from '@/components/attendance/LeaveBalanceWidget';
 import { Plus, User, Calendar, CheckCircle, Clock, AlertCircle, LogIn, LogOut, Loader2, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
@@ -136,6 +137,11 @@ export default function AttendancePage() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {/* Leave Balance — always visible for employees */}
+      {!isManager && (
+        <LeaveBalanceWidget />
       )}
 
       <div className="grid gap-4 md:grid-cols-4">

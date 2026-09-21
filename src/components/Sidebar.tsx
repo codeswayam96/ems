@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Users, CheckSquare, Calendar, Clock, Settings,
-  ChevronRight, Zap, LogOut, Megaphone, X,
+  ChevronRight, Zap, LogOut, Megaphone, X, IndianRupee,
+  GitBranch, BarChart2, Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useEmsUser } from "./providers/EmsProvider";
@@ -34,10 +35,13 @@ const navGroups: NavGroup[] = [
     label: "Management",
     items: [
       { href: "/users", icon: Users, label: "Users", roles: ['admin', 'ceo', 'manager'] },
+      { href: "/org-chart", icon: GitBranch, label: "Org Chart" },
       { href: "/tasks", icon: CheckSquare, label: "Tasks" },
       { href: "/meetings", icon: Calendar, label: "Meetings" },
       { href: "/calendar", icon: Calendar, label: "Calendar" },
       { href: "/teams", icon: Users, label: "Teams", roles: ['admin', 'ceo', 'manager', 'team_leader'] },
+      { href: "/payroll", icon: IndianRupee, label: "Payroll", roles: ['admin', 'ceo', 'manager'] },
+      { href: "/performance", icon: Target, label: "Performance", roles: ['admin', 'ceo', 'manager'] },
     ],
   },
   {
@@ -46,6 +50,8 @@ const navGroups: NavGroup[] = [
       { href: "/tracking", icon: Clock, label: "Time Tracking" },
       { href: "/attendance", icon: Users, label: "Attendance" },
       { href: "/announcements", icon: Megaphone, label: "Announcements" },
+      { href: "/analytics", icon: BarChart2, label: "Workforce Intel", roles: ['admin', 'ceo', 'manager'] },
+      { href: "/payroll", icon: IndianRupee, label: "My Payslips" },
     ],
   },
   {

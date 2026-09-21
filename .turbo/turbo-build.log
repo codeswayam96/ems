@@ -2,32 +2,38 @@
 > ems-frontend@0.1.0 build
 > next build
 
-▲ Next.js 16.2.4 (Turbopack)
+▲ Next.js 16.2.6 (Turbopack)
 - Environments: .env.local, .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 34.2s
+✓ Compiled successfully in 86s
   Running TypeScript ...
-  Finished TypeScript in 40s ...
+  Finished TypeScript in 96s ...
   Collecting page data using 7 workers ...
-  Generating static pages using 7 workers (0/25) ...
-  Generating static pages using 7 workers (6/25) 
-  Generating static pages using 7 workers (12/25) 
-  Generating static pages using 7 workers (18/25) 
-✓ Generating static pages using 7 workers (25/25) in 1956ms
+  Generating static pages using 7 workers (0/35) ...
+  Generating static pages using 7 workers (8/35) 
+  Generating static pages using 7 workers (17/35) 
+  Generating static pages using 7 workers (26/35) 
+✓ Generating static pages using 7 workers (35/35) in 8.3s
   Finalizing page optimization ...
 
 Route (app)
 ┌ ○ /
 ├ ○ /_not-found
+├ ○ /analytics
 ├ ○ /announcements
 ├ ƒ /api/announcements
 ├ ƒ /api/announcements/[id]
 ├ ƒ /api/attendance
 ├ ƒ /api/attendance/[id]
+├ ƒ /api/attendance/leave-balance
 ├ ƒ /api/dashboard/stats
 ├ ƒ /api/ems-profile
 ├ ƒ /api/meetings
+├ ƒ /api/payroll
+├ ƒ /api/payroll/[id]
+├ ƒ /api/payroll/salary-config
+├ ƒ /api/performance
 ├ ƒ /api/tasks
 ├ ƒ /api/tasks/[id]
 ├ ƒ /api/tasks/my-tasks
@@ -43,12 +49,18 @@ Route (app)
 ├ ○ /calendar
 ├ ○ /dashboard
 ├ ○ /meetings
+├ ○ /offline
+├ ○ /org-chart
+├ ○ /payroll
+├ ○ /performance
 ├ ○ /settings
 ├ ○ /tasks
 ├ ○ /teams
 ├ ○ /tracking
 └ ○ /users
 
+
+ƒ Proxy (Middleware)
 
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
